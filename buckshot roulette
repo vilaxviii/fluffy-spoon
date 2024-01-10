@@ -1,1 +1,70 @@
+from random import randint
+shotgun_load = []
+shell_probability = [0, 0]
+shells = [0, 0]
+player_item = [randint(0,4), randint(0,4)]
+bot_item = [randint(0,4), randint(0,4)]
+def translate(n):
+	if n == 0:
+		return "beer"
+	elif n == 1:
+		return "cigarettes"
+	elif n == 2: 
+		return "magnifying glass"
+	elif n == 3:
+		return "sawing knife"
+	else:
+		return "cuffs"
+for i in range(2):
+	player_item[i]= translate(player_item[i])
+	bot_item[i] = translate(bot_item[i])
+def load():
+	for i in range(8):
+		if shotgun_load == 8:
+			break
+		else:
+			shotgun_load.append(randint(0, 1))
+	for i in range(len(shotgun_load)):
+		if shotgun_load[i] == 0:
+			shell_probability[0] += 1
+			shells[0] += 1
+		else: 
+			shell_probability[1] += 1
+			shells[1] += 1
+	for i in range(len(shell_probability)):
+	 shell_probability[i] = (shell_probability[i]/ 8) * 100
+	#print(shotgun_load)
+	print("blank percentage: ", shell_probability[0], "%, live percentage: ", shell_probability[1], "%")
+	print("blank: ", shells[0], "/8, live: ", shells[1], "/8")
+      #print(shotgun_load)
+def distribute():
+	for i in range(2):
+		if len(player_item) == 8:
+			break
+		else: 
+			player_item.append(randint(0, 4))
+			player_item[len(player_item)-1] = translate(player_item[len(player_item)-1])
+	for i in range(2):
+		if len(bot_item) == 8:
+			break
+		else:
+			bot_item.append(randint(0, 4))
+			bot_item[len(bot_item)-1] =translate(bot_item[len(bot_item)-1])
+	print("your items are: ", player_item)
+	print("bot items are: ", bot_item)
+def game():
+	print("your items are: ", player_item)
+	print("bot items are: ", bot_item)
+	load()
+	print("*******************************")
+	turn = 0
+	if turn % 2 == 0:
+		print("player's turn...")
+		if len(player_item)==0:
+			action = input("index of item you want to use, or x to shoot yourself or y to shoot the bot.")
+		else:
+			action = input("x to shoot yourself or y to shoot the bot")
+	else:
+		print("bot's turn...")
 
+game()
